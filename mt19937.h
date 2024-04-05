@@ -1,10 +1,10 @@
 /*
-  A C-program for MT19937, originally coded by Takuji Nishimura and Makoto Matsumoto.
-  This is a simplified version for the lecture `CSIT Exp1` by Yasumasa Tamura.
+  A C-program for MT19937, originally coded by Takuji Nishimura and Makoto
+  Matsumoto. This is a simplified version for the lecture `CSIT Exp1` by
+  Yasumasa Tamura.
 
-  Copyright (c) 2013, 2016 Mutsuo Saito, Makoto Matsumoto and Hiroshima University.
-  Copyright (c) 2024 Yasumasa Tamura.
-  All rights reserved.
+  Copyright (c) 2013, 2016 Mutsuo Saito, Makoto Matsumoto and Hiroshima
+  University. Copyright (c) 2024 Yasumasa Tamura. All rights reserved.
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are
@@ -36,6 +36,26 @@
 #ifndef CSIT_EXP1_MT19937
 #define CSIT_EXP1_MT19937
 
-
-
+#ifdef __cplusplus
+extern "C" {
 #endif
+
+#include <stdint.h>
+
+/// Initializes mt19937 with a given seed
+/**
+ * \param[in] seed seed value
+ */
+void seed(uint_fast32_t seed);
+
+/// Generates a random number
+/**
+ * @return a random integer
+ */
+uint_fast32_t genrand(void);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* CSIT_EXP1_MT19937 */

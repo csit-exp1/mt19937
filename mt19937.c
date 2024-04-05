@@ -1,10 +1,10 @@
 /*
-  A C-program for MT19937, originally coded by Takuji Nishimura and Makoto Matsumoto.
-  This is a simplified version for the lecture `CSIT Exp1` by Yasumasa Tamura.
+  A C-program for MT19937, originally coded by Takuji Nishimura and Makoto
+  Matsumoto. This is a simplified version for the lecture `CSIT Exp1` by
+  Yasumasa Tamura.
 
-  Copyright (c) 2013, 2016 Mutsuo Saito, Makoto Matsumoto and Hiroshima University.
-  Copyright (c) 2024 Yasumasa Tamura.
-  All rights reserved.
+  Copyright (c) 2013, 2016 Mutsuo Saito, Makoto Matsumoto and Hiroshima
+  University. Copyright (c) 2024 Yasumasa Tamura. All rights reserved.
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are
@@ -33,3 +33,67 @@
   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+#include <stddef.h>
+#include <stdint.h>
+#include <time.h>
+
+#define UINT32(x) ((x) & 0xffffffffUL)
+#define DEFAULT_SEED 5489UL
+
+enum {
+    N = 624,
+    M = 397,
+    MATRIX_A = 0x9908b0dfUL,
+    UPPER_MASK = 0x80000000UL,
+    LOWER_MASK = 0x7fffffffUL,
+};
+
+static uint_fast32_t mt[N];
+static size_t idx = N + 1; // `N + 1` means the generator is not initialized
+
+uint_fast32_t temper(uint_fast32_t y) {
+    y ^= (y >> 11);
+    y ^= (y << 7) & 0x9d2c5680UL;
+    y ^= (y << 15) & 0xefc60000UL;
+    y ^= (y >> 18);
+    return y;
+}
+
+void seed(uint_fast32_t s) {
+    mt[0] = UINT32(s);
+    for (idx = 1; idx < N; ++idx) {
+        mt[idx] = (1812433253UL * (mt[idx - 1] ^ (mt[idx - 1] >> 30)) + idx);
+        mt[idx] = UINT32(mt[idx]);
+    }
+}
+
+uint_fast32_t genrand(void) {
+    static const uint_fast32_t mag01[2] = {0x0UL, MATRIX_A};
+    uint_fast32_t y;
+
+    // Re-generate random sequence if necessary
+    if (idx >= N) {
+        // Initialize genrator with a default seed if not initialized
+        if (idx == N + 1) {
+            seed(DEFAULT_SEED);
+        }
+
+        // Re-generate random sequence
+        for (int k = 0; k < N - M; ++k) {
+            y = (mt[k] & UPPER_MASK) | (mt[k + 1] & LOWER_MASK);
+            mt[k] = mt[k + M] ^ (y >> 1) ^ mag01[y & 0x1UL];
+        }
+        for (int k = N - M; k < N - 1; ++k) {
+            y = (mt[k] & UPPER_MASK) | (mt[k + 1] & LOWER_MASK);
+            mt[k] = mt[k + (M - N)] ^ (y >> 1) ^ mag01[y & 0x1UL];
+        }
+        y = (mt[N - 1] & UPPER_MASK) | (mt[0] & LOWER_MASK);
+        mt[N - 1] = mt[M - 1] ^ (y >> 1) ^ mag01[y & 0x1UL];
+
+        idx = 0;
+    }
+
+    y = mt[idx++];
+    y = temper(y);
+    return y;
+}

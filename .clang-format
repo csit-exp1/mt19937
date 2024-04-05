@@ -1,0 +1,10 @@
+---
+AlignEscapedNewlines: Left
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 1
+IndentWidth: 4
+InsertNewlineAtEOF: true
+PointerAlignment: Right
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
