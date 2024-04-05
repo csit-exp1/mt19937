@@ -3,7 +3,7 @@
 
 This repository provides a c-program for (simplified) mt19937, a pseudo random generator.
 
-As a complementary material for the lecture "CSIT Exp1 - Optimization", the program only provides two functions: `void seed(uint32_t)` and `uint32_t genrand(void)`.
+As a complementary material for the lecture "CSIT Exp1 - Optimization", the program only provides two functions: `void seed(uint_fast32_t)` and `uint_fast32_t genrand(void)`.
 This design choice is for simplicity.
 
 ## Usage

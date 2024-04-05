@@ -51,7 +51,7 @@ enum {
 static uint_fast32_t mt[N];
 static size_t idx = N + 1; // `N + 1` means the generator is not initialized
 
-uint_fast32_t temper(uint_fast32_t y) {
+static uint_fast32_t temper(uint_fast32_t y) {
     y ^= (y >> 11);
     y ^= (y << 7) & 0x9d2c5680UL;
     y ^= (y << 15) & 0xefc60000UL;
