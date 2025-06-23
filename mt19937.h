@@ -42,6 +42,9 @@ extern "C" {
 
 #include <stdint.h>
 
+/// The maximum value the function `genrand` may return.
+extern uint_fast32_t MT19937_MAX;
+
 /// Initializes mt19937 with a given seed
 /**
  * \param[in] seed seed value

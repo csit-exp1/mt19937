@@ -33,6 +33,7 @@
   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+#include <limits.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <time.h>
@@ -58,6 +59,8 @@ static uint_fast32_t temper(uint_fast32_t y) {
     y ^= (y >> 18);
     return y;
 }
+
+uint_fast32_t MT19937_MAX = UINT32_MAX;
 
 void seed(uint_fast32_t s) {
     mt[0] = UINT32(s);

@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <time.h>
 
-#include <limits.h> // `UINT32_MAX` を使用するために必要
-
 #include "mt19937.h"
 
 int main(void) {
@@ -21,7 +19,7 @@ int main(void) {
     printf("Floating point [0.0, 1.0]\n");
     printf("-------------------------\n");
     for (int i = 0; i < 10; ++i) {
-        float rnd = genrand() / (float)UINT32_MAX;
+        float rnd = genrand() / (float)MT19937_MAX;
         printf("%f\n", rnd);
     }
 
