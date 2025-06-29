@@ -32,7 +32,7 @@ This design choice is for simplicity.
 ## Sample code
 
 `sample.c` shows how to use mt19937 in a simple program.
-The program prints 10 interger random numbers within a range of `[0, 100]`, and 10 floating point random numbers within a range of `[0.0, 1.0]`.
+The program prints 10 interger random numbers within a range of `[0, 100)`, and 10 floating point random numbers within a range of `[0.0, 1.0]`.
 
 You can build and execute `sample.c` with the following commands:
 
